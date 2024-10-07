@@ -1,6 +1,7 @@
 import {
   reactExtension,
   Banner,
+  Button,
   BlockStack,
   Checkbox,
   Text,
@@ -27,24 +28,30 @@ function Extension() {
     // For checkouts such as draft order invoices, cart attributes may not be allowed
     // Consider rendering a fallback UI or nothing at all, if the feature is unavailable
     return (
-      <Banner title="Saumya's Checkout" status="warning">
-        {translate("attributeChangesAreNotSupported")}
-      </Banner>
+      <>
+        <Banner title="Saumya's Checkout" status="warning">
+          {translate("attributeChangesAreNotSupported")}
+        </Banner>
+      </>
     );
   }
-
+  
   // 3. Render a UI
   return (
-    <BlockStack border={"dotted"} padding={"tight"}>
-      <Banner title="Saumya's Checkout">
-        {translate("welcome", {
-          target: <Text emphasis="italic">{extension.target}</Text>,
-        })}
-      </Banner>
-      <Checkbox onChange={onCheckboxChange}>
-        {translate("iWouldLikeAFreeGiftWithMyOrder")}
-      </Checkbox>
-    </BlockStack>
+    <>
+      <BlockStack border={"dotted"} padding={"tight"}>
+        <Banner title="Saumya's Checkout">
+          {translate("welcome", {
+            target: <Text emphasis="italic">{extension.target}</Text>,
+          })}
+        </Banner>
+        <Checkbox onChange={onCheckboxChange}>
+          {translate("iWouldLikeAFreeGiftWithMyOrder")}
+        </Checkbox>
+      </BlockStack>
+      {/* Addition of custom button */}
+      <Button onPress={() => console.log('Pay Now is pressed')}>Pay Now</Button>
+    </>
   );
 
   async function onCheckboxChange(isChecked) {

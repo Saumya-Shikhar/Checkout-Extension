@@ -3,7 +3,7 @@
 client_id = "dab4d8be2fc5869b2e36b767c7edb6b8"
 name = "Custom_app"
 handle = "custom_app-58"
-application_url = "https://products-partially-qualifying-harper.trycloudflare.com"
+application_url = "https://cups-prot-logging-classics.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://products-partially-qualifying-harper.trycloudflare.com/auth/callback",
-  "https://products-partially-qualifying-harper.trycloudflare.com/auth/shopify/callback",
-  "https://products-partially-qualifying-harper.trycloudflare.com/api/auth/callback"
+  "https://cups-prot-logging-classics.trycloudflare.com/auth/callback",
+  "https://cups-prot-logging-classics.trycloudflare.com/auth/shopify/callback",
+  "https://cups-prot-logging-classics.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
