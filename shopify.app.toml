@@ -3,7 +3,7 @@
 client_id = "dab4d8be2fc5869b2e36b767c7edb6b8"
 name = "Custom_app"
 handle = "custom_app-58"
-application_url = "https://additional-for-camp-hall.trycloudflare.com"
+application_url = "https://fc-formula-coast-youth.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://additional-for-camp-hall.trycloudflare.com/auth/callback",
-  "https://additional-for-camp-hall.trycloudflare.com/auth/shopify/callback",
-  "https://additional-for-camp-hall.trycloudflare.com/api/auth/callback"
+  "https://fc-formula-coast-youth.trycloudflare.com/auth/callback",
+  "https://fc-formula-coast-youth.trycloudflare.com/auth/shopify/callback",
+  "https://fc-formula-coast-youth.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
