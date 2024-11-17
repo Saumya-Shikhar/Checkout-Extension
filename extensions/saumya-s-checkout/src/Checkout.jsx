@@ -1,66 +1,49 @@
 import {
   reactExtension,
-  Banner,
-  Button,
-  BlockStack,
+  extension,
   Checkbox,
-  Text,
-  useApi,
   useApplyAttributeChange,
   useInstructions,
+  Banner,  
+  Button,
+  BlockStack,
+  InlineStack,
+  Text,
+  Image,
+  useApi,
   useTranslate,
 } from "@shopify/ui-extensions-react/checkout";
 
 // 1. Choose an extension target
-export default reactExtension("purchase.checkout.block.render", () => (
+export default reactExtension("purchase.checkout.actions.render-before", () => (
   <Extension />
 ));
 
-function Extension() {
-  const translate = useTranslate();
-  const { extension } = useApi();
-  const instructions = useInstructions();
+
+function Extension(){
   const applyAttributeChange = useApplyAttributeChange();
+  const instructions = useInstructions();
 
-
-  // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
-  if (!instructions.attributes.canUpdateAttributes) {
-    // For checkouts such as draft order invoices, cart attributes may not be allowed
-    // Consider rendering a fallback UI or nothing at all, if the feature is unavailable
-    return (
-      <>
-        <Banner title="Saumya's Checkout" status="warning">
-          {translate("attributeChangesAreNotSupported")}
-        </Banner>
-      </>
-    );
-  }
-  
-  // 3. Render a UI
-  return (
-    <>
-      <BlockStack border={"dotted"} padding={"tight"}>
-        <Banner title="Saumya's Checkout">
-          {translate("welcome", {
-            target: <Text emphasis="italic">{extension.target}</Text>,
-          })}
-        </Banner>
-        <Checkbox onChange={onCheckboxChange}>
-          {translate("iWouldLikeAFreeGiftWithMyOrder")}
-        </Checkbox>
-      </BlockStack>
-      {/* Addition of custom button */}
-      <Button onPress={() => console.log('Pay Now is pressed')}>Pay Now</Button>
-    </>
+ // 2. Render a UI
+  return(
+    <Checkbox onChange={onCheckboxChange}>
+      I would like to recieve a free gift with this order.
+    </Checkbox>
   );
 
   async function onCheckboxChange(isChecked) {
-    // 4. Call the API to modify checkout
+    	// 3. Check if the API is available
+    if(!instructions.attributes?.canUpdateAttributes) {
+      console.log("Attribute cannot be updated at checkout");
+      return;
+    }
+      // 4. Call the API to modify checkout
     const result = await applyAttributeChange({
       key: "requestedFreeGift",
       type: "updateAttribute",
       value: isChecked ? "yes" : "no",
-    });
-    console.log("applyAttributeChange result", result);
+    })
+    console.log("applyAttributeChange",result)
   }
 }
+
