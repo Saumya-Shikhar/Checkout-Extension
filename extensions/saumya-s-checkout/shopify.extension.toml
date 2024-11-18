@@ -21,7 +21,11 @@ target = "purchase.checkout.actions.render-before"
 
 [[extensions.targeting]]
 module = "./src/custom.jsx"
-target = "purchase.checkout.actions.render-before"
+target = "purchase.checkout.cart-line-item.render-after"
+
+[[extensions.targeting]]
+module = "./src/AgeValidation.jsx"
+target = "purchase.checkout.contact.render-after"
 
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
@@ -37,9 +41,10 @@ api_access = true
 # products, customers, and more. Learn more:
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#metafields
 
-# [[extensions.metafields]]
-# namespace = "my_namespace"
-# key = "my_key"
+ [[extensions.metafields]]
+ namespace = "custom"
+ key = "additional_info"
+
 # [[extensions.metafields]]
 # namespace = "my_namespace"
 # key = "my_other_key"
