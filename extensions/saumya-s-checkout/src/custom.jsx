@@ -1,39 +1,51 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
     reactExtension,
-    useApplyAttributeChange,
-    useInstructions,
-    Checkbox,
+    useAppMetafields,
+    useCartLineTarget,
+    Text,
 } from "@shopify/ui-extensions-react/checkout"
 
-// 1. Choose an extension target
-export default reactExtension("purchase.checkout.actions.render-before", () => (
-    <Extension />
-  ));
-  
-  
-  function Extension(){
-    const applyAttributeChange = useApplyAttributeChange();
-    const instructions = useInstructions();
-  
-  //  2. Render a UI
-    return(
-      <Checkbox onChange={onCheckboxChange}>
-        I would like to recieve a free gift with this order.
-      </Checkbox>
-    );
-  
-    async function onCheckboxChange(isChecked) {
-          // 3. Check if the API is available
-      if(!instructions.attributes?.canUpdateAttributes) {
-        console.log("Attribute cannot be updated at checkout");
-        return;
-      }
-        // 4. Call the API to modify checkout
-      const result = await applyAttributeChange({
-        key: "requestedFreeGift",
-        type: "updateAttribute",
-        value: isChecked ? "yes" : "no",
-      })
+// Set the entry points for the extension
+export default reactExtension("purchase.checkout.cart-line-item.render-after", () => <MetafieldData />);
+
+function MetafieldData() {
+  // Use the merchant-defined metafield for watering instructions and map it to a cart line
+  const wateringMetafields = useAppMetafields({
+    type: "product",
+    namespace: "custom",
+    key: "additional_info"
+  });
+  const cartLineTarget = useCartLineTarget();
+
+  const [wateringInstructions, setWateringInstructions] = useState("");
+
+  useEffect(() => {
+    // Get the product ID from the cart line item
+    const productId = cartLineTarget?.merchandise?.product?.id;
+    if (!productId) {
+      return;
     }
+
+    const wateringMetafield = wateringMetafields.find(({target}) => {
+      // Check if the target of the metafield is the product from our cart line
+      return `gid://shopify/Product/${target.id}` === productId;
+    });
+
+    // If we find the metafield, set the watering instructions for this cart line
+    if (typeof wateringMetafield?.metafield?.value === "string") {
+      setWateringInstructions(wateringMetafield.metafield.value);
+    }
+  }, [cartLineTarget, wateringMetafields]);
+
+  // Render the watering instructions if applicable
+  if (wateringInstructions) {
+    return (
+        <Text>
+          {wateringInstructions}
+        </Text>
+      );
   }
+
+  return null;
+}

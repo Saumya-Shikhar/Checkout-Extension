@@ -19,6 +19,10 @@ type = "ui_extension"
 module = "./src/Checkout.jsx"
 target = "purchase.checkout.actions.render-before"
 
+[[extensions.targeting]]
+module = "./src/custom.jsx"
+target = "purchase.checkout.actions.render-before"
+
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#api-access
