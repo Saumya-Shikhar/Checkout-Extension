@@ -3,7 +3,7 @@
 client_id = "dab4d8be2fc5869b2e36b767c7edb6b8"
 name = "Custom_app"
 handle = "custom_app-58"
-application_url = "https://luxembourg-switching-fw-thesaurus.trycloudflare.com"
+application_url = "https://building-prisoners-difficulties-webmasters.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://luxembourg-switching-fw-thesaurus.trycloudflare.com/auth/callback",
-  "https://luxembourg-switching-fw-thesaurus.trycloudflare.com/auth/shopify/callback",
-  "https://luxembourg-switching-fw-thesaurus.trycloudflare.com/api/auth/callback"
+  "https://building-prisoners-difficulties-webmasters.trycloudflare.com/auth/callback",
+  "https://building-prisoners-difficulties-webmasters.trycloudflare.com/auth/shopify/callback",
+  "https://building-prisoners-difficulties-webmasters.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
